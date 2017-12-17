@@ -6,6 +6,8 @@ html.no-js(lang='en')
     title= title
     link(rel='stylesheet', href='https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css')
     link(href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css', rel='stylesheet', type='text/css')
+    style.
+      footer { margin-top:100px }
   body
     .title-bar(data-responsive-toggle='realEstateMenu', data-hide-for='small')
       button.menu-icon(type='button', data-toggle='')
@@ -13,46 +15,51 @@ html.no-js(lang='en')
     #realEstateMenu.top-bar
       .top-bar-left
         ul.menu(data-responsive-menu='accordion')
-          li.menu-text Anonymous Feedback
-          li
-            a(href='#') Dummy link
+          li.menu-text Pure Anonymous Feedback
       .top-bar-right
         ul.menu
           li
-            a(href='#') Welcome X
+            a(href='#') Welcome Anonymous
           li
-            a.button (TO DO)Login
+            button.button(data-open="new-user") New here? Click this!
     br
     .row
-      .medium-7.large-6.columns
+      .medium-12.columns
         form
-          .row
-            .small-12.columns
-              label
-                | pmf
-                input(type='text', placeholder='pmf')
-            .small-12.columns
-              label
-                | Feedback
-                input(type='text', placeholder='Comments')
+          label
+            | Enter PMF Key to whom you want to send feedback
+          .medium-2.cell
+            input(type='text', placeholder='[a-z]{3}\\d{2}')
+          label
+            | Feedback
+            textarea(placeholder='Please be responsible on your feedbacks!')
+            center
               button.button(type='submit') Submit
-      .medium-5.large-3.columns
-        button.button(type='submit') Generate keys
-
     .row.column
       hr
     .row.column
-      p.lead Feedback for you
-    .row.small-up-1.medium-up-2.large-up-3
-      .column
+      p.lead Feedbacks for you
+    .row
+      .medium-12.columns
         .callout
-          p All bad
-          p.lead Copernican Revolution caused an uproar
-          p.subheader Find Earth-like planets life outside the Solar System
+          p This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, 
+        .callout
+          p This is a sample feedback text 2
+        .callout
+          p This is a sample feedback text 3
+        .callout
+          p This is a sample feedback text 4
+    #new-user.tiny.reveal(data-reveal="")
+      p This is sample
     footer
-      .row.expanded.callout.secondary
-        p All Rights Reserved
-    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
-    script(src='https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js')
+      .row
+        .medium-6.columns
+          ul.menu
+        .medium-6.columns
+          ul.menu.float-right
+            li
+              a(href-'#') Wonder how pure anonymous? Click this!
+    script(src="https://code.jquery.com/jquery-2.1.4.min.js")
+    script(src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js")
     script.
-      $(document).foundation();
+        $(document).foundation();
