@@ -8,6 +8,10 @@ html.no-js(lang='en')
     link(href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css', rel='stylesheet', type='text/css')
     style.
       footer { margin-top:100px }
+      input::-webkit-input-placeholder
+      {
+        text-align:center;
+      }
   body
     .title-bar(data-responsive-toggle='realEstateMenu', data-hide-for='small')
       button.menu-icon(type='button', data-toggle='')
@@ -21,20 +25,20 @@ html.no-js(lang='en')
           li
             a(href='#') Welcome Anonymous
           li
-            button.button(data-open="new-user") New here? Click this!
+            button.button(data-open="new-user", id="generate-keys") New here? Click this!
     br
     .row
       .medium-12.columns
+        center
+          p.lead Send feedback
         form
+          center
+            .medium-2.cell
+              input(type='text', placeholder='To - PMF Key')
           label
-            | Enter PMF Key to whom you want to send feedback
-          .medium-2.cell
-            input(type='text', placeholder='[a-z]{3}\\d{2}')
-          label
-            | Feedback
             textarea(placeholder='Please be responsible on your feedbacks!')
             center
-              button.button(type='submit') Submit
+              button.button(type='submit') Send
     .row.column
       hr
     .row.column
@@ -50,7 +54,7 @@ html.no-js(lang='en')
         .callout
           p This is a sample feedback text 4
     #new-user.tiny.reveal(data-reveal="")
-      p This is sample
+      p#generate-keys-status
     footer
       .row
         .medium-6.columns

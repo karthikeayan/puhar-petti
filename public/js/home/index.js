@@ -1,5 +1,3 @@
-
-
 $( document ).ready(function() {
   console.log( "Page loaded" );
   //regitser events
@@ -34,9 +32,6 @@ function generateKeys() {
     console.log(keypair.publicKey);
     saveFile("key.pem", "application/x-pem-file", pem);
   });
-
-
-
 
   //below function is from 
   //https://stackoverflow.com/questions/19327749/javascript-blob-filename-without-link
