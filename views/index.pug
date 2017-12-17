@@ -37,7 +37,8 @@ html.no-js(lang='en')
                 input(type='text', placeholder='Comments')
               button.button(type='submit') Submit
       .medium-5.large-3.columns
-        button.button(type='submit') Generate keys
+        button#generate-keys.button(type='submit') Generate keys
+        p#generate-keys-status
 
     .row.column
       hr
@@ -54,5 +55,7 @@ html.no-js(lang='en')
         p All Rights Reserved
     script(src='https://code.jquery.com/jquery-2.1.4.min.js')
     script(src='https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js')
+    script(src='https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js')
     script.
       $(document).foundation();
+    script(type='text/javascript',src='js/home/index.js')
