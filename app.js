@@ -5,9 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var mongoose = require('mongoose');
+require('./schema')();
 
+var index = require('./routes/index');
 var app = express();
 
 // view engine setup
@@ -40,6 +41,34 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+var UserFeedbacks = mongoose.model('UserFeedbacks');
+
+mongoose.connect('mongodb://sunka04-i5771.ca.com:27017/puhar-petti', function(err) {
+  if (err) {
+    throw err;
+  }
+
+  UserFeedbacks.create({user: 'karthik', content: 'this is enctypted sample', date: new Date()},
+      function(err, row) {
+        if (err) {
+          throw err;
+        }
+        console.log('New table entry added to db: %s', row.toString());
+
+        // using the static
+        /*Person.findPersonByName('bill', function(err, result) {
+          if (err) {
+            throw err;
+          }
+
+          console.log(result);
+          cleanup();
+        });
+        */
+      }
+  );
 });
 
 module.exports = app;
