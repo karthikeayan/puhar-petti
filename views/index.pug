@@ -1,5 +1,58 @@
-extends layout
+doctype html
+html.no-js(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title= title
+    link(rel='stylesheet', href='https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css')
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css', rel='stylesheet', type='text/css')
+  body
+    .title-bar(data-responsive-toggle='realEstateMenu', data-hide-for='small')
+      button.menu-icon(type='button', data-toggle='')
+      .title-bar-title Menu
+    #realEstateMenu.top-bar
+      .top-bar-left
+        ul.menu(data-responsive-menu='accordion')
+          li.menu-text Anonymous Feedback
+          li
+            a(href='#') Dummy link
+      .top-bar-right
+        ul.menu
+          li
+            a(href='#') Welcome X
+          li
+            a.button (TO DO)Login
+    br
+    .row
+      .medium-7.large-6.columns
+        form
+          .row
+            .small-12.columns
+              label
+                | pmf
+                input(type='text', placeholder='pmf')
+            .small-12.columns
+              label
+                | Feedback
+                input(type='text', placeholder='Comments')
+              button.button(type='submit') Submit
+      .medium-5.large-3.columns
+        button.button(type='submit') Generate keys
 
-block content
-  h1= title
-  p Welcome to #{title}
+    .row.column
+      hr
+    .row.column
+      p.lead Feedback for you
+    .row.small-up-1.medium-up-2.large-up-3
+      .column
+        .callout
+          p All bad
+          p.lead Copernican Revolution caused an uproar
+          p.subheader Find Earth-like planets life outside the Solar System
+    footer
+      .row.expanded.callout.secondary
+        p All Rights Reserved
+    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
+    script(src='https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js')
+    script.
+      $(document).foundation();
