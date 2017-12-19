@@ -9,6 +9,8 @@ var index = require('./routes/index');
 var keys = require('./routes/keys');
 var app = express();
 
+var mongoose = require('mongoose');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -23,6 +25,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.post('/keys', keys);
+app.get('/keys/:user', keys);
+app.post('/keys/:user', keys);
+
+mongoose.connect('mongodb://sunka04-i5771.ca.com:27017/puhar-petti', function () {})
+  .then(() => {
+    console.log("Connected to database");
+  })
+  .catch(err => {
+    console.log('couldn\'t connect to database');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

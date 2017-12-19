@@ -2,10 +2,16 @@ $( document ).ready(function() {
   console.log( "Page loaded" );
   //regitser events
   generateKeysEvent()
+  submitFeedbackEvent()
+  // uploadKeyEvent()
 });
 
 function generateKeysStatus (data) {
-    $( "#generate-keys-status" ).html(data);
+  $( "#generate-keys-status" ).html(data);
+}
+
+function submitFeedbackStatus(data){
+  $("#submit-feedback-status").html(data);
 }
 
 function generateKeysEvent () {
@@ -17,8 +23,55 @@ function generateKeysEvent () {
   });
 }
 
+function submitFeedbackEvent(){
+  $("#submit-feedback").click(function(){
+    submitFeedbackStatus("Submitting your feedback...");
+
+    var user = $("#user-id").val();
+    var feedback = '||' + $("#feedback-input").val();
+    var newEncrypted = "";
+    var oldEncrypted = "";
+
+    $.ajax({
+      type: "GET",
+      url: "keys/" + user,
+      success: function(res){
+        var keyObj = forge.pki.publicKeyFromPem(res.key);
+        oldEncrypted = res.encrypted;
+        newEncrypted = keyObj.encrypt(feedback);
+        newEncrypted = oldEncrypted + newEncrypted
+        console.log(newEncrypted);
+        submitFeedback(user, newEncrypted);
+      },
+      error: function(err){
+        console.log("Public key fetch for the user failed!");
+      }
+    })
+  });
+}
+
+function uploadKeyEvent(keyContents){
+    console.log(keyContents);
+
+    var ownUser = $("#own-user").val();
+    var keyObj = forge.pki.privateKeyFromPem(keyContents);
+    var decrypted = "";
+    
+    $.ajax({
+      type: "GET",
+      url: "keys/" + ownUser,
+      success: function(res){
+        decrypted = keyObj.decrypt(res.encrypted);
+        console.log(decrypted);
+      },
+      error: function(err){
+        console.log("Couldn't fetch user " + ownUser + " feedbacks!");
+      }
+    })
+}
+
 function sendToDatabase(publicKey, user) {
-  console.log('started sending to database for user ' + user);
+  console.log('started sending key to database for user ' + user);
 
   var data = {
     user: user,
@@ -37,8 +90,31 @@ function sendToDatabase(publicKey, user) {
       console.log("Post to database failed!");
 
       if (err.status === 409){
-        generateKeysStatus("Found your existing user id, lost your key? Go to /forget of this app");;
+        generateKeysStatus("Found your existing user id, lost your key? Go to /forget of this app");
       }
+    }
+  });
+}
+
+function submitFeedback(user, encryptedFeedback){
+  console.log('started sending feedback for user ' + user);
+
+  var data = {
+    user: user,
+    encrypted: encryptedFeedback
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "keys/" + user,
+    data: data,
+    dataType: "json",
+    success: function(res){
+      console.log(res);
+      submitFeedbackStatus("Feedback submitted");
+    },
+    error: function(err){
+      console.log("Post to database failed!");
     }
   });
 }
@@ -79,3 +155,21 @@ function generateKeys() {
     a.remove();
   }
 }
+
+function readSingleFile(evt) {
+  //Retrieve the first (and only!) File from the FileList object
+  var f = evt.target.files[0]; 
+
+  if (f) {
+    var r = new FileReader();
+    r.onload = function(e) { 
+      var contents = e.target.result;
+      uploadKeyEvent(contents);
+    }
+    r.readAsText(f);
+  } else { 
+    alert("Failed to load file");
+  }
+}
+
+document.getElementById('private-key-upload').addEventListener('change', readSingleFile, false);

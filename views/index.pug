@@ -31,18 +31,26 @@ html.no-js(lang='en')
       .medium-12.columns
         center
           p.lead Send feedback
-        form
+        center
+          .medium-2.cell
+            input(type='text', placeholder='To - PMF Key', id='user-id')
+        label
+          textarea(placeholder='Please be responsible on your feedbacks!', id='feedback-input')
           center
-            .medium-2.cell
-              input(type='text', placeholder='To - PMF Key')
-          label
-            textarea(placeholder='Please be responsible on your feedbacks!')
-            center
-              button.button(type='submit') Send
+            //- button.button(data-open="submit-feedback-box", id='submit-feedback') Send
+            button.button(data-open="submit-feedback-box", id='submit-feedback') Send
     .row.column
       hr
-    .row.column
-      p.lead Feedbacks for you
+    .row
+      .medium-2.columns
+        p.lead.float-left Feedbacks for you
+      .medium-2.columns.float-right
+        label.button(id='show-feedbacks') Show feedbacks
+      .medium-2.columns.float-right
+        label.button(for='private-key-upload', id='upload-key') Upload Your Key
+        input#private-key-upload.show-for-sr(type='file')
+      .medium-2.columns.float-right
+        input.cell(type='text', placeholder='Your PMF Key', id='own-user')
     .row
       .medium-12.columns
         .callout
@@ -59,6 +67,9 @@ html.no-js(lang='en')
       input(type='text', placeholder='Your PMF Key', id='new-user-id')
       button.button(type='submit', id='generate-keys') Generate Key
       p#generate-keys-status
+    #submit-feedback-box.tiny.reveal(data-reveal="")
+      p#submit-feedback-status
+      p
     footer
       .row
         .medium-6.columns

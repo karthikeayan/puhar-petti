@@ -13,6 +13,10 @@ module.exports = function() {
       unique : true
     },
     public_key  : String,
+    feedback    : {
+      type    : String,
+      default : ''
+    },
     date        : Date
   });
 
