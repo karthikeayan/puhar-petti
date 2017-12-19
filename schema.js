@@ -7,10 +7,13 @@ var Schema = mongoose.Schema,
 
 module.exports = function() {
   var UserFeedbacksSchema = new Schema({
-    id       : ObjectId,
-    user     : String,
-    content  : String,
-    date     : Date
+    id          : ObjectId,
+    user        : {
+      type   : String,
+      unique : true
+    },
+    public_key  : String,
+    date        : Date
   });
 
   mongoose.model('UserFeedbacks', UserFeedbacksSchema);

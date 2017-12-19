@@ -11,7 +11,35 @@ function generateKeysStatus (data) {
 function generateKeysEvent () {
   $( "#generate-keys" ).click(function() {
     generateKeysStatus("Generating keys...")
-    generateKeys()
+    setTimeout(function(){
+      generateKeys();
+    }, 2000);
+  });
+}
+
+function sendToDatabase(publicKey, user) {
+  console.log('started sending to database for user ' + user);
+
+  var data = {
+    user: user,
+    publicKey: publicKey
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "keys",
+    data: data,
+    dataType: "json",
+    success: function(res){
+      console.log(res);
+    },
+    error: function(err){
+      console.log("Post to database failed!");
+
+      if (err.status === 409){
+        generateKeysStatus("Found your existing user id, lost your key? Go to /forget of this app");;
+      }
+    }
   });
 }
 
@@ -25,12 +53,15 @@ function generateKeys() {
     }
     generateKeysStatus("Keys Generated")
     console.log(JSON.stringify(keypair.privateKey));
-    var pem = forge.pki.publicKeyToPem(keypair.publicKey);
-    console.log(pem);
-    var pem = forge.pki.privateKeyToPem(keypair.privateKey);
-    console.log(pem);    
-    console.log(keypair.publicKey);
-    saveFile("key.pem", "application/x-pem-file", pem);
+    var publicPem = forge.pki.publicKeyToPem(keypair.publicKey);
+    console.log('This is your public key');
+    console.log(publicPem);
+    console.log('This is your private key');
+    var privatePem = forge.pki.privateKeyToPem(keypair.privateKey);
+    console.log(privatePem);
+    var user = $("#new-user-id").val()
+    sendToDatabase(publicPem, user);
+    saveFile("key.pem", "application/x-pem-file", privatePem);
   });
 
   //below function is from 

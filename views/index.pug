@@ -25,7 +25,7 @@ html.no-js(lang='en')
           li
             a(href='#') Welcome Anonymous
           li
-            button.button(data-open="new-user", id="generate-keys") New here? Click this!
+            button.button(data-open="new-user") New here? Click this!
     br
     .row
       .medium-12.columns
@@ -54,6 +54,10 @@ html.no-js(lang='en')
         .callout
           p This is a sample feedback text 4
     #new-user.tiny.reveal(data-reveal="")
+      p A unique key will be generated for you, using that you can decrypt feedbacks sent to you.
+      p Enter your PMK Key
+      input(type='text', placeholder='Your PMF Key', id='new-user-id')
+      button.button(type='submit', id='generate-keys') Generate Key
       p#generate-keys-status
     footer
       .row
