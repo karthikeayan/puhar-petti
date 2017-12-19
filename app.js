@@ -5,11 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var mongoose = require('mongoose');
-require('./schema')();
-
 var index = require('./routes/index');
+var keys = require('./routes/keys');
 var app = express();
+
+var mongoose = require('mongoose');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,6 +24,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.post('/keys', keys);
+app.get('/keys/:user', keys);
+app.post('/keys/:user', keys);
+
+mongoose.connect('mongodb://sunka04-i5771.ca.com:27017/puhar-petti', function () {})
+  .then(() => {
+    console.log("Connected to database");
+  })
+  .catch(err => {
+    console.log('couldn\'t connect to database');
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -41,34 +52,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
-});
-
-var UserFeedbacks = mongoose.model('UserFeedbacks');
-
-mongoose.connect('mongodb://sunka04-i5771.ca.com:27017/puhar-petti', function(err) {
-  if (err) {
-    throw err;
-  }
-
-  UserFeedbacks.create({user: 'karthik', content: 'this is enctypted sample', date: new Date()},
-      function(err, row) {
-        if (err) {
-          throw err;
-        }
-        console.log('New table entry added to db: %s', row.toString());
-
-        // using the static
-        /*Person.findPersonByName('bill', function(err, result) {
-          if (err) {
-            throw err;
-          }
-
-          console.log(result);
-          cleanup();
-        });
-        */
-      }
-  );
 });
 
 module.exports = app;

@@ -6,6 +6,12 @@ html.no-js(lang='en')
     title= title
     link(rel='stylesheet', href='https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.min.css')
     link(href='https://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css', rel='stylesheet', type='text/css')
+    style.
+      footer { margin-top:100px }
+      input::-webkit-input-placeholder
+      {
+        text-align:center;
+      }
   body
     .title-bar(data-responsive-toggle='realEstateMenu', data-hide-for='small')
       button.menu-icon(type='button', data-toggle='')
@@ -13,46 +19,68 @@ html.no-js(lang='en')
     #realEstateMenu.top-bar
       .top-bar-left
         ul.menu(data-responsive-menu='accordion')
-          li.menu-text Anonymous Feedback
-          li
-            a(href='#') Dummy link
+          li.menu-text Pure Anonymous Feedback
       .top-bar-right
         ul.menu
           li
-            a(href='#') Welcome X
+            a(href='#') Welcome Anonymous
           li
-            a.button (TO DO)Login
+            button.button(data-open="new-user") New here? Click this!
     br
     .row
-      .medium-7.large-6.columns
-        form
-          .row
-            .small-12.columns
-              label
-                | pmf
-                input(type='text', placeholder='pmf')
-            .small-12.columns
-              label
-                | Feedback
-                input(type='text', placeholder='Comments')
-              button.button(type='submit') Submit
-      .medium-5.large-3.columns
-        button.button(type='submit') Generate keys
-
+      .medium-12.columns
+        center
+          p.lead Send feedback
+        center
+          .medium-2.cell
+            input(type='text', placeholder='To - PMF Key', id='user-id')
+        label
+          textarea(placeholder='Please be responsible on your feedbacks!', id='feedback-input')
+          center
+            //- button.button(data-open="submit-feedback-box", id='submit-feedback') Send
+            button.button(data-open="submit-feedback-box", id='submit-feedback') Send
     .row.column
       hr
-    .row.column
-      p.lead Feedback for you
-    .row.small-up-1.medium-up-2.large-up-3
-      .column
+    .row
+      .medium-2.columns
+        p.lead.float-left Feedbacks for you
+      .medium-2.columns.float-right
+        label.button(id='show-feedbacks') Show feedbacks
+      .medium-2.columns.float-right
+        label.button(for='private-key-upload', id='upload-key') Upload Your Key
+        input#private-key-upload.show-for-sr(type='file')
+      .medium-2.columns.float-right
+        input.cell(type='text', placeholder='Your PMF Key', id='own-user')
+    .row
+      .medium-12.columns
         .callout
-          p All bad
-          p.lead Copernican Revolution caused an uproar
-          p.subheader Find Earth-like planets life outside the Solar System
+          p This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, This is a sample feedback text 1, 
+        .callout
+          p This is a sample feedback text 2
+        .callout
+          p This is a sample feedback text 3
+        .callout
+          p This is a sample feedback text 4
+    #new-user.tiny.reveal(data-reveal="")
+      p A unique key will be generated for you, using that you can decrypt feedbacks sent to you.
+      p Enter your PMK Key
+      input(type='text', placeholder='Your PMF Key', id='new-user-id')
+      button.button(type='submit', id='generate-keys') Generate Key
+      p#generate-keys-status
+    #submit-feedback-box.tiny.reveal(data-reveal="")
+      p#submit-feedback-status
+      p
     footer
-      .row.expanded.callout.secondary
-        p All Rights Reserved
-    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
-    script(src='https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js')
+      .row
+        .medium-6.columns
+          ul.menu
+        .medium-6.columns
+          ul.menu.float-right
+            li
+              a(href-'#') Wonder how pure anonymous? Click this!
+    script(src="https://code.jquery.com/jquery-2.1.4.min.js")
+    script(src="https://dhbhdrzi4tiry.cloudfront.net/cdn/sites/foundation.js")
+    script(src='https://cdn.jsdelivr.net/npm/node-forge@0.7.0/dist/forge.min.js')
     script.
-      $(document).foundation();
+        $(document).foundation();
+    script(type='text/javascript',src='js/home/index.js')
